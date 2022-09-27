@@ -62,7 +62,14 @@
     /// <returns>True if the game is over</returns>
     static bool IsGameOver(List<string> board)
     {
-        return false;
+        if (IsWinner(board,"x") || IsWinner(board, "o") || IsTie(board))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     /// <summary>Determines if the provided player has a tic tac toe.</summary>
@@ -71,6 +78,22 @@
     /// <returns></returns>
     static bool IsWinner(List<string> board, string player)
     {
+        for(int i = 0; i < 3; i++)
+        {
+            if (board[0 + i] == player && board[1 + i] == player && board[2 + i] == player)
+            {
+                return true;
+            }
+        }
+        if (board[0] == player && board[4] == player && board[8] == player)
+        {
+            return true;
+        }
+        if (board[2] == player && board[4] == player && board[6] == player)
+        {
+            return true;
+        }
+        
         return false;
     }
 
@@ -87,14 +110,21 @@
     /// <returns>The next players sign (x or o)</returns>
     static string GetNextPlayer(string currentPlayer)
     {
-        return "x";
+        if(currentPlayer == "x")
+        {
+            return "o";
+        }
+        else
+        {
+            return "x";
+        }
     }
 
     /// <summary>Gets the 1-based spot number associated with the user's choice.</summary>
     /// <param name="currentPlayer">The sign (x or o) of the current player.</param>
     /// <returns>A 1-based spot number (not a 0-based index)</returns>
     static int GetMoveChoice(string currentPlayer)
-    {
+    {  
         return 1;
     }
 
@@ -107,6 +137,10 @@
     /// <param name="currentPlayer">The current player's sign (x or o)</param>
     static void MakeMove(List<string> board, int choice, string currentPlayer)
     {
+        Console.WriteLine("Which space do you want to choose?");
+        choice = Console.ReadLine();
+        choice = choice - 1;
 
+        board[choice] = currentPlayer;
     }
 }
