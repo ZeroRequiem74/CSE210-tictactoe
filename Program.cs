@@ -50,7 +50,7 @@
             }
             else
             {
-                Console.WriteLine($"{board[i]} | ");
+                Console.WriteLine($"{board[i]}|");
             }
         }
     }
@@ -142,7 +142,7 @@
     {  
         int choice = 0;
         Console.WriteLine("What space do you want to choose?");
-        string input = Console.ReadLine();
+        string? input = Console.ReadLine();
         choice = Convert.ToInt32(input);
         choice = choice - 1;
         return choice;
