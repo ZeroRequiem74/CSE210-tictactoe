@@ -38,21 +38,15 @@
     /// <param name="board">The board</param>
     static void DisplayBoard(List<string> board)
     {
-        for (int i = 0; i < 9; i++)
-        {
-            if (i == 2 || i == 5)
-            {
-                Console.WriteLine($"{board[i]} \n-+-+-\n");
-            }
-            else if(i == 8)
-            {
-                Console.WriteLine(board[i]);
-            }
-            else
-            {
-                Console.WriteLine($"{board[i]}|");
-            }
-        }
+        Console.WriteLine($"{board[0]}|{board[1]}|{board[2]}");
+
+        Console.WriteLine("-+-+-");
+
+        Console.WriteLine($"{board[3]}|{board[4]}|{board[5]}");
+
+        Console.WriteLine("-+-+-");
+
+        Console.WriteLine($"{board[6]}|{board[7]}|{board[8]}");
     }
 
     /// <summary>
@@ -80,7 +74,14 @@
     {
         for(int i = 0; i < 3; i++)
         {
-            if (board[0 + i] == player && board[1 + i] == player && board[2 + i] == player)
+            if (board[0 + (3*i)] == player && board[1 + (3*i)] == player && board[2 + (3*i)] == player)
+            {
+                return true;
+            }
+        }
+        for(int i = 0; i < 3; i++)
+        {
+            if (board[0 + i] == player && board[3 + i] == player && board[6 +i] == player)
             {
                 return true;
             }
@@ -103,7 +104,7 @@
     static bool IsTie(List<string> board)
     {
         int turnNumber = 0;
-        for (int i = 0; i <9; i++)
+        for (int i = 0; i < 9; i++)
         {
             if(board[i] == "x" || board[i] == "o")
             {
@@ -140,11 +141,9 @@
     /// <returns>A 1-based spot number (not a 0-based index)</returns>
     static int GetMoveChoice(string currentPlayer)
     {  
-        int choice = 0;
         Console.WriteLine("What space do you want to choose?");
         string? input = Console.ReadLine();
-        choice = Convert.ToInt32(input);
-        choice = choice - 1;
+        int choice = Convert.ToInt32(input);
         return choice;
     }
 
@@ -157,6 +156,7 @@
     /// <param name="currentPlayer">The current player's sign (x or o)</param>
     static void MakeMove(List<string> board, int choice, string currentPlayer)
     {
+        choice = choice - 1;
         board[choice] = currentPlayer;
     }
 }
