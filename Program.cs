@@ -102,9 +102,24 @@
     /// <returns>True if the board is full.</returns>
     static bool IsTie(List<string> board)
     {
-        return false;
+        int turnNumber = 0;
+        for (int i = 0; i <9; i++)
+        {
+            if(board[i] == "x" || board[i] == "o")
+            {
+                turnNumber += 1;
+            }
+        }
+        if (turnNumber == 9)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
-
+ 
     /// <summary>Cycles through the players (from x to o and o to x)</summary>
     /// <param name="currentPlayer">The current players sign (x or o)</param>
     /// <returns>The next players sign (x or o)</returns>
@@ -125,7 +140,12 @@
     /// <returns>A 1-based spot number (not a 0-based index)</returns>
     static int GetMoveChoice(string currentPlayer)
     {  
-        return 1;
+        int choice = 0;
+        Console.WriteLine("What space do you want to choose?");
+        string input = Console.ReadLine();
+        choice = Convert.ToInt32(input);
+        choice = choice - 1;
+        return choice;
     }
 
     /// <summary>
@@ -137,10 +157,6 @@
     /// <param name="currentPlayer">The current player's sign (x or o)</param>
     static void MakeMove(List<string> board, int choice, string currentPlayer)
     {
-        Console.WriteLine("Which space do you want to choose?");
-        choice = Console.ReadLine();
-        choice = choice - 1;
-
         board[choice] = currentPlayer;
     }
 }
