@@ -3,7 +3,7 @@
     static void Main(string[] args)
     {
 
-        List<string> board = GetNewBoard();
+        Board board = new Board();
         string currentPlayer = "x";
 
         while (!IsGameOver(board))
@@ -20,19 +20,6 @@
         Console.WriteLine("Good game. Thanks for playing!");
     }
 
-    /// <summary>Gets a new instance of the board with the numbers 1-9 in place. </summary>
-    /// <returns>A list of 9 strings representing each square.</returns>
-    static List<string> GetNewBoard()
-    {
-        List<string> board = new List<string>();
-
-        for (int i = 1; i <=9; i++)
-        {
-            board.Add(i.ToString());
-        }
-        
-        return board;
-    }
 
     /// <summary>Displays the board in a 3x3 grid.</summary>
     /// <param name="board">The board</param>
@@ -54,9 +41,9 @@
     /// </summary>
     /// <param name="board">The current board.</param>
     /// <returns>True if the game is over</returns>
-    static bool IsGameOver(List<string> board)
+    static bool IsGameOver(Board board)
     {
-        if (IsWinner(board,"x") || IsWinner(board, "o") || IsTie(board))
+        if (board.IsPlayerWinner("x") || board.IsPlayerWinner("o") || IsTie(board))
         {
             return true;
         }
@@ -66,59 +53,13 @@
         }
     }
 
-    /// <summary>Determines if the provided player has a tic tac toe.</summary>
-    /// <param name="board">The current board</param>
-    /// <param name="player">The player to check for a win</param>
-    /// <returns></returns>
-    static bool IsWinner(List<string> board, string player)
-    {
-        for(int i = 0; i < 3; i++)
-        {
-            if (board[0 + (3*i)] == player && board[1 + (3*i)] == player && board[2 + (3*i)] == player)
-            {
-                return true;
-            }
-        }
-        for(int i = 0; i < 3; i++)
-        {
-            if (board[0 + i] == player && board[3 + i] == player && board[6 +i] == player)
-            {
-                return true;
-            }
-        }
-        if (board[0] == player && board[4] == player && board[8] == player)
-        {
-            return true;
-        }
-        if (board[2] == player && board[4] == player && board[6] == player)
-        {
-            return true;
-        }
-        
-        return false;
-    }
 
     /// <summary>Determines if the board is full with no more moves possible.</summary>
     /// <param name="board">The current board.</param>
     /// <returns>True if the board is full.</returns>
-    static bool IsTie(List<string> board)
+    static bool IsTie(Board board)
     {
-        int turnNumber = 0;
-        for (int i = 0; i < 9; i++)
-        {
-            if(board[i] == "x" || board[i] == "o")
-            {
-                turnNumber += 1;
-            }
-        }
-        if (turnNumber == 9)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return board.containsUnclaimedSpaces();
     }
  
     /// <summary>Cycles through the players (from x to o and o to x)</summary>
